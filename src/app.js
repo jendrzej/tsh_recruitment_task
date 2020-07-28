@@ -13,17 +13,18 @@ export default class App {
         .then((response)=> {response.json})
         .then(function (body) {
           self.profile = body;
-          self.update_profile();
+          self.updateProfile();
         })
 
     })
 
   }
 
-  update_profile() {
-    $('#profile-name').text($('#input-username').val())
-    $('#profile-image').attr('src', this.profile.avatar_url)
-    $('#profile-url').attr('href', this.profile.html_url).text(this.profile.login)
-    $('#profile-bio').text(this.profile.bio || '(no information)')
+  updateProfile() {
+    const { name, login, avatar_url, html_url, bio } = this.profile;
+    $('#profile-name').text(name);
+    $('#profile-image').attr('src', avatar_url);
+    $('#profile-url').attr('href', html_url).text(login);
+    $('#profile-bio').text(bio || '(no information)');
   }
 }
