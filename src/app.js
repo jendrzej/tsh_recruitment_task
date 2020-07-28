@@ -2,7 +2,7 @@ import './assets/scss/app.scss';
 import $ from 'cash-dom';
 
 
-export class App {
+export default class App {
   initializeApp() {
     let self = this;
 
