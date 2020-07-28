@@ -8,10 +8,16 @@ export default class App {
       let userName = $('#input-username').val();
 
       fetch('https://api.github.com/users/' + userName)
-        .then((response) => response.json())
+        .then((response) => {
+          if(!response.ok) throw new Error('User not found');
+          else return response.json();
+        })
         .then((body) => {
           this.profile = body;
           this.updateProfile();
+        })
+        .catch((err) => {
+          alert(err.message);
         });
 
     })
