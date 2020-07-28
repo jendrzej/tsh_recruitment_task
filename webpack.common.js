@@ -79,19 +79,8 @@ const config = {
   plugins: [
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({template: 'index.html'}),
-    extractPlugin
+    extractPlugin,
   ],
-
-  devServer: {
-    contentBase: path.resolve(__dirname, "./dist/assets/media"),
-    compress: true,
-    port: 2000,
-    stats: 'errors-only',
-    open: true
-  },
-
-  devtool: 'inline-source-map'
-
 };
 
 module.exports = config;
