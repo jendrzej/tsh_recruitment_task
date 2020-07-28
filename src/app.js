@@ -4,17 +4,15 @@ import $ from 'cash-dom';
 
 export default class App {
   initializeApp() {
-    let self = this;
-
-    $('#button-load').on('click', function (e) {
+    $('#button-load').on('click', (e) => {
       let userName = $('#input-username').val();
 
       fetch('https://api.github.com/users/' + userName)
         .then((response)=> {response.json})
-        .then(function (body) {
-          self.profile = body;
-          self.updateProfile();
-        })
+        .then((body) => {
+          this.profile = body;
+          this.updateProfile();
+        });
 
     })
 
