@@ -1,5 +1,6 @@
 import './assets/scss/app.scss';
 import $ from 'cash-dom';
+import UserEventsHistory from './userEventsHistory';
 
 
 export default class App {
@@ -15,6 +16,7 @@ export default class App {
           .then((body) => {
             this.profile = body;
             this.updateProfile();
+            this.loadUserEventsHistory(userName);
           })
           .catch((err) => {
             alert(err.message);
@@ -45,5 +47,10 @@ export default class App {
     $('#profile-image').attr('src', avatar_url);
     $('#profile-url').attr('href', html_url).text(login);
     $('#profile-bio').text(bio || '(no information)');
+  }
+
+  loadUserEventsHistory(username) {
+    this.eventsHistory = new UserEventsHistory(username);
+    this.eventsHistory.fetchUserEvents();
   }
 }
