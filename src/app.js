@@ -2,12 +2,13 @@ import './assets/scss/app.scss';
 import $ from 'cash-dom';
 import UserProfile from './userProfile';
 import UserEventsHistory from './userEventsHistory';
+import { hideElement, showElement } from './utils';
 
 
 export default class App {
   initializeApp() {
     $('#button-load').on('click', (e) => {
-      let userName = $('#input-username').val();
+      const userName = $('#input-username').val();
       if(this.validateUsernameInput(userName)) {
         this.loadData(userName);
       };
@@ -30,19 +31,19 @@ export default class App {
   }
   
   hideSpinner() {
-    $('#spinner').addClass('is-hidden');
+    hideElement('#spinner');
   }
 
   showSpinner() {
-    $('#spinner').removeClass('is-hidden');
+    showElement('#spinner');
   }
 
   hideColumns() {
-    $('#columns-container').addClass('is-hidden');
+    hideElement('#columns-container');
   }
 
   showColumns() {
-    $('#columns-container').removeClass('is-hidden');
+    showElement('#columns-container');
   }
 
   validateUsernameInput(username) {

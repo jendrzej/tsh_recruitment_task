@@ -1,5 +1,6 @@
 import $ from 'cash-dom';
 import { pullRequestEvent, pullRequestReviewCommentEvent } from './templates/userEventsTemplates';
+import { showElement, hideElement } from './utils';
 
 const TYPE_PULL_REQUEST = 'PullRequestEvent';
 const TYPE_PULL_REQUEST_REVIEW_COMMENT = 'PullRequestReviewCommentEvent';
@@ -43,11 +44,11 @@ const TYPE_PULL_REQUEST_REVIEW_COMMENT = 'PullRequestReviewCommentEvent';
   }
 
   showEmptyParagraph() {
-    $('#history-empty').removeClass('is-hidden')
+    showElement('#history-empty');
   }
 
   hideEmptyParagraph() {
-    $('#history-empty').addClass('is-hidden');
+    hideElement('#history-empty');
   }
 
   getTemplateByEvent(event) {
