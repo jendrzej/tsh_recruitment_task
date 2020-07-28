@@ -1,5 +1,20 @@
-@import "~bulma";
+@import "~bulma/sass/utilities/_all.sass";
+@import "~bulma/sass/base/_all.sass";
+@import "~bulma/sass/elements/button.sass";
+@import "~bulma/sass/elements/container.sass";
+@import "~bulma/sass/elements/content.sass";
+@import "~bulma/sass/elements/form.sass";
+@import "~bulma/sass/elements/image.sass";
+@import "~bulma/sass/elements/other.sass";
+@import "~bulma/sass/elements/title.sass";
+@import "~bulma/sass/components/navbar.sass";
+@import "~bulma/sass/components/media.sass";
+@import "~bulma/sass/grid/columns.sass";
+
 @import "~bulma-timeline";
+
+$bp-medium: 768px;
+$bp-large: 1280px;
 
 .navbar {
   border-bottom: 1px solid #eee;
@@ -8,6 +23,7 @@
 
 .gh-username img{
   width: 32px;
+  vertical-align: middle;
 }
 
 #profile-bio{
@@ -16,4 +32,13 @@
 
 .timeline .timeline-item {
   padding-bottom: 1em;
+}
+
+.profile-container {
+  @media(min-width: $bp-medium) {
+    width: 50%;
+  }
+  @media(min-width: $bp-large) {
+    width: 30%;
+  }
 }
