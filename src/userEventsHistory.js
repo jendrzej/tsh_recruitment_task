@@ -10,10 +10,9 @@ const TYPE_PULL_REQUEST_REVIEW_COMMENT = 'PullRequestReviewCommentEvent';
   }
 
   fetchUserEvents() {
-      if(!this.username) return;
       this.clearContainer();
       this.hideEmptyParagraph();
-      fetch(`https://api.github.com/users/${this.username}/events/public`)
+      return fetch(`https://api.github.com/users/${this.username}/events/public`)
         .then((response) => {
           if(!response.ok) throw new Error('User not found');
           else return response.json();
@@ -21,9 +20,6 @@ const TYPE_PULL_REQUEST_REVIEW_COMMENT = 'PullRequestReviewCommentEvent';
         .then((data) => {
           const eventsToDisplay = this.filterEvents(data);
           this.addEventsToContainer(eventsToDisplay);
-        })
-        .catch((err) => {
-          alert(err.message);
         });
   }
 

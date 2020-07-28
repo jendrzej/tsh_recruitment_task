@@ -1,5 +1,6 @@
 import './assets/scss/app.scss';
 import $ from 'cash-dom';
+import UserProfile from './userProfile';
 import UserEventsHistory from './userEventsHistory';
 
 
@@ -8,22 +9,40 @@ export default class App {
     $('#button-load').on('click', (e) => {
       let userName = $('#input-username').val();
       if(this.validateUsernameInput(userName)) {
-        fetch('https://api.github.com/users/' + userName)
-          .then((response) => {
-            if(!response.ok) throw new Error('User not found');
-            else return response.json();
-          })
-          .then((body) => {
-            this.profile = body;
-            this.updateProfile();
-            this.loadUserEventsHistory(userName);
-          })
-          .catch((err) => {
-            alert(err.message);
-          });        
+        this.loadData(userName);
       };
     })
+  }
 
+  loadData(username) {
+    this.hideColumns();
+    this.showSpinner();
+    this.loadUserProfile(username)
+      .then(() => this.loadUserEventsHistory(username))
+      .then(() => {
+        this.hideSpinner();
+        this.showColumns();
+      })
+      .catch(err => {
+        this.hideSpinner();
+        alert(err.message);
+      })
+  }
+  
+  hideSpinner() {
+    $('#spinner').addClass('is-hidden');
+  }
+
+  showSpinner() {
+    $('#spinner').removeClass('is-hidden');
+  }
+
+  hideColumns() {
+    $('#columns-container').addClass('is-hidden');
+  }
+
+  showColumns() {
+    $('#columns-container').removeClass('is-hidden');
   }
 
   validateUsernameInput(username) {
@@ -41,16 +60,13 @@ export default class App {
     return username && pattern.test(username);
   }
 
-  updateProfile() {
-    const { name, login, avatar_url, html_url, bio } = this.profile;
-    $('#profile-name').text(name);
-    $('#profile-image').attr('src', avatar_url);
-    $('#profile-url').attr('href', html_url).text(login);
-    $('#profile-bio').text(bio || '(no information)');
+  loadUserProfile(username) { 
+    this.userProfile = new UserProfile(username);
+    return this.userProfile.fetchUserData();
   }
 
   loadUserEventsHistory(username) {
     this.eventsHistory = new UserEventsHistory(username);
-    this.eventsHistory.fetchUserEvents();
+    return this.eventsHistory.fetchUserEvents();
   }
 }
